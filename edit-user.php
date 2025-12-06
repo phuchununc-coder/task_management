@@ -1,13 +1,27 @@
 <?php
 session_start();
 if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
+    include "DB_connection.php";
+    include "app/Model/User.php";
+
+    if (!isset($_GET['id'])) {
+        header("Location: user.php");
+        exit();
+    }
+    $id = $_GET['id'];
+    $user = get_user_by_id($conn, $id);
+
+	if ($user == 0) {
+        header("Location: user.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Thêm tài khoản</title>
+	<title>Chỉnh sửa tài khoản</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,8 +31,8 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">
-			<h4 class="title">Thêm tài khoản <a href="user.php">Quản lý tài khoản</a></h4>
-            <form class="form-1" method="POST" action="app/add-user.php">
+			<h4 class="title">Chỉnh sửa tài khoản <a href="user.php">Quản lý tài khoản</a></h4>
+            <form class="form-1" method="POST" action="app/update-user.php">
 				<?php if (isset($_GET['error'])) {?>
 				<div class="danger" role="alert">
 					<?php echo stripcslashes($_GET['error']); ?>
@@ -33,18 +47,19 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 				
                 <div class="input-holder">
 					<label>Tên đầy đủ</label>
-                    <input type="text" name="full_name" class="input-1" placeholder="Tên đầy đủ"><br>
+                    <input type="text" name="full_name" value="<?=$user['full_name']?>" class="input-1" placeholder="Tên đầy đủ"><br>
                 </div>
                 <div class="input-holder">
 					<label>Tên tài khoản</label>
-                    <input type="text" name="user_name" class="input-1" placeholder="Tên tài khoản"><br>
+                    <input type="text" name="user_name" value="<?=$user['username']?>" class="input-1" placeholder="Tên tài khoản"><br>
                 </div>
                 <div class="input-holder">
 					<label>Mật khẩu</label>
-                    <input type="text" name="password" class="input-1" placeholder="Mật khẩu"><br>
+                    <input type="text" name="password" value="***********" class="input-1" placeholder="Mật khẩu"><br>
                 </div>
+				<input type="text" name="id" value="<?=$user['id']?>" hidden>
 
-				<button class="edit-btn">Thêm</button>
+				<button class="edit-btn">Cập nhật</button>
             </form>
 
 		</section>

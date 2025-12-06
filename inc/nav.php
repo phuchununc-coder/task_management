@@ -15,7 +15,7 @@
                         <span>Bảng điều khiển</span>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="#">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <span>Công việc của tôi</span>
@@ -23,7 +23,7 @@
                 </li>
                 <li>
                     <a href="notifications.php">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i class="fa fa-bell" aria-hidden="true"></i>
                         <span>Thông báo</span>
                     </a>
                 </li>
@@ -57,13 +57,13 @@
                 </li>
                 <li>
                     <a href="tasks.php">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
                         <span>Tất cả công việc</span>
                     </a>
                 </li>
                 <li>
                     <a href="notifications.php">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i class="fa fa-bell" aria-hidden="true"></i>
                         <span>Thông báo</span>
                     </a>
                 </li>
