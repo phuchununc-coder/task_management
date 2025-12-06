@@ -1,13 +1,16 @@
 <?php
 session_start();
 if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
+    include "DB_connection.php";
+    include "app/Model/User.php";
+    $users = get_all_users($conn);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tài khoản</title>
+	<title>Quản lý tài khoản</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,36 +20,33 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">
-			<table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>@social</td>
-                    </tr>
-                </tbody>
+			<h4 class="title">Quản lý tài khoản <a href="add-user.php">Thêm tài khoản</a></h4>
+            <?php if ($users != 0) { ?>
+            <table class="main-table">
+                <tr>
+                    <th>#</th>
+                    <th>Tên đầy đủ</th>
+                    <th>Tài khoản</th>
+                    <th>Vai trò</th>
+                    <th>Hành động</th>
+                </tr>
+                <?php $i=0; foreach ($users as $user) { ?>
+                <tr>
+                    <td><?=++$i ?></td>
+                    <td><?= $user['full_name'] ?></td>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['role'] ?></td>
+                    <td>
+                        <a href="edit-user.php?id=<?= $user['id'] ?>" class="edit-btn">Chỉnh sửa</a>
+                        <a href="delete-user.php?id=<?= $user['id'] ?>" class="delete-btn">Xoá</a>
+                    </td>
+                </tr>
+                <?php } ?>
             </table>
+            <?php } else { ?>
+                <h3>Empty</h3>
+            <?php } ?>
+
 		</section>
 	</div>
 
