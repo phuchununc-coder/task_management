@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
-    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['assigned_to']) && $_SESSION['role'] == 'admin') {
+    if (isset($_POST['id']) && isset($_POST['status']) && $_SESSION['role'] == 'class') {
         include "../DB_connection.php";
 
         function validate_input($data) {
@@ -13,38 +13,39 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         
         $title = validate_input($_POST['title']);
         $description = validate_input($_POST['description']);
-        $assigned_to = validate_input($_POST['assigned_to']);
+        $status = validate_input($_POST['status']);
+        $id = validate_input($_POST['id']);
 
         if (empty($title)) {
             $cl = "Nhập tiêu đề";
-            header("Location: ../create_task.php?error=$cl");
+            header("Location: ../edit-task-class.php?error=$cl&id=$id");
             exit();
         } else if (empty($description)) {
             $cl = "Nhập mô tả";
-            header("Location: ../create_task.php?error=$cl");
+            header("Location: ../edit-task-class.php?error=$cl&id=$id");
             exit();
-        } else if ($assigned_to == 0) {
-            $cl = "Chọn lớp học";
-            header("Location: ../create_task.php?error=$cl");
+        } else if (empty($status)) {
+            $cl = "Chọn trạng thái";
+            header("Location: ../edit-task-class.php?error=$cl&id=$id");
             exit();
         } else {
 
             include "Model/Task.php";
             
-            $data = array($title,  $description, $assigned_to);
-            insert_task($conn, $data);
+            $data = array($title, $description, $status, $id);
+            update_task_class($conn, $data);
             
-            $cl = "Tạo mới công việc thành công";
-            header("Location: ../create_task.php?success=$cl");
+            $cl = "Cập nhật công việc thành công";
+            header("Location: ../edit-task-class.php?success=$cl&id=$id");
             exit();
         }
     } else {
         $cl = "unknown error occurred";
-        header("Location: ../create_task.php?error=$cl");
+        header("Location: ../edit-task-class.php?error=$cl");
         exit();
     }
 } else {
     $cl = "Đăng nhập lần đầu";
-    header("Location: ../create_task.php?error=$cl");
+    header("Location: ../login.php?error=$cl");
     exit();
 } ?>

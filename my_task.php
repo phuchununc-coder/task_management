@@ -1,19 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "admin") {
+if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     include "DB_connection.php";
     include "app/Model/Task.php";
     include "app/Model/User.php";
 
-    $tasks = get_all_tasks($conn);
-    $users = get_all_users($conn);
+    $tasks = get_all_tasks_by_id($conn, $_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tất cả công việc</title>
+	<title>Công việc của tôi</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,7 +22,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">
-			<h4 class="title">Tất cả công việc <a href="create_task.php">Tạo công việc</a></h4>
+			<h4 class="title">Công việc của tôi</h4>
             <?php if (isset($_GET['success'])) {?>
 				<div class="success" role="alert">
 					<?php echo stripcslashes($_GET['success']); ?>
@@ -35,7 +34,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
                     <th>#</th>
                     <th>Tiêu đề</th>
                     <th>Mô tả</th>
-                    <th>Phân công</th>
                     <th>Trạng thái</th>
                 </tr>
                 <?php $i=0; foreach ($tasks as $task) { ?>
@@ -43,31 +41,22 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
                     <td><?=++$i ?></td>
                     <td><?= $task['title'] ?></td>
                     <td><?= $task['description'] ?></td>
-                    <td>
-                        <?php
-                        foreach ($users as $user) {
-                            if ($user['id'] == $task['assigned_to']) {
-                                echo $user['full_name'];
-                            }
-                        } ?>
-                    </td>
                     <td><?= $task['status'] ?></td>
                     <td>
-                        <a href="edit-task.php?id=<?= $task['id'] ?>" class="edit-btn">Chỉnh sửa</a>
-                        <a href="delete-task.php?id=<?= $task['id'] ?>" class="delete-btn">Xoá</a>
+                        <a href="edit-task-class.php?id=<?= $task['id'] ?>" class="edit-btn">Chỉnh sửa</a>
                     </td>
                 </tr>
                 <?php } ?>
             </table>
             <?php } else { ?>
-                <h3>Empty</h3>
+                <h3>Không có</h3>
             <?php } ?>
 
 		</section>
 	</div>
 
     <script type="text/javascript">
-        var active = document.querySelector("#navList li:nth-child(4)");
+        var active = document.querySelector("#navList li:nth-child(3)");
         active.classList.add("active");
     </script>
 </body>
