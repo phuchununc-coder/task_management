@@ -16,11 +16,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         $assigned_to = validate_input($_POST['assigned_to']);
 
         if (empty($title)) {
-            $cl = "Nhập tiêu đề";
+            $cl = "Nhập quân số";
             header("Location: ../create_task.php?error=$cl");
             exit();
         } else if (empty($description)) {
-            $cl = "Nhập mô tả";
+            $cl = "Nhập nội dung";
             header("Location: ../create_task.php?error=$cl");
             exit();
         } else if ($assigned_to == 0) {

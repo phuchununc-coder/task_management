@@ -45,7 +45,12 @@ session_start();
                             $_SESSION['id'] = $id;
                             $_SESSION['username'] = $usernameDb;
                             header("Location: ../index.php");
-                        } else {
+                        } else if ($role == "khoa") {
+                            $_SESSION['role'] = $role;
+                            $_SESSION['id'] = $id;
+                            $_SESSION['username'] = $usernameDb;
+                            header("Location: ../index.php");
+                        }else {
                             $cl = "Incorrect username or password";
                             header("Location: ../login.php?error=$cl");
                             exit();

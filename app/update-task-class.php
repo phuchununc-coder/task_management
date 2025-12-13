@@ -17,11 +17,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         $id = validate_input($_POST['id']);
 
         if (empty($title)) {
-            $cl = "Nhập tiêu đề";
+            $cl = "Nhập quân số";
             header("Location: ../edit-task-class.php?error=$cl&id=$id");
             exit();
         } else if (empty($description)) {
-            $cl = "Nhập mô tả";
+            $cl = "Nhập nội dung";
             header("Location: ../edit-task-class.php?error=$cl&id=$id");
             exit();
         } else if (empty($status)) {

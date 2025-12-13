@@ -40,9 +40,9 @@
                     </a>
                 </li>
             </ul>
-        <?php } else if ($_SESSION['role'] == "department") {
+        <?php } else if ($_SESSION['role'] == "khoa") {
             ?>
-            <!-- Department Navigation Bar -->
+            <!-- Khoa Navigation Bar -->
             <ul id="navList">
                 <li>
                     <a href="index.php">

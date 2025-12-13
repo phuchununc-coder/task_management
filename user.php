@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "admin") {
     include "DB_connection.php";
     include "app/Model/User.php";
-    $users = get_all_users($conn);
+    $users = get_users($conn);
 ?>
 <!DOCTYPE html>
 <html>

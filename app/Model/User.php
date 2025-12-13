@@ -1,9 +1,21 @@
 <?php
 
 function get_all_users($conn) {
-    $sql = "SELECT * FROM users WHERE role =?";
+    $sql = "SELECT * FROM users WHERE role =? ORDER BY username ASC";
     $stmt = $conn->prepare($sql);
     $stmt->execute(["class"]);
+
+    if ($stmt->rowCount() > 0) {
+        $users = $stmt->fetchAll();
+    } else $users = 0;
+
+    return $users;
+}
+
+function get_users($conn) {
+    $sql = "SELECT * FROM users WHERE NOT role = 'admin' ORDER BY username ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([]);
 
     if ($stmt->rowCount() > 0) {
         $users = $stmt->fetchAll();

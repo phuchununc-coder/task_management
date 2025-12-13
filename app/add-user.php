@@ -14,6 +14,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         $user_name = validate_input($_POST['user_name']);
         $password = validate_input($_POST['password']);
         $full_name = validate_input($_POST['full_name']);
+        $role = validate_input($_POST['role']);
 
         if (empty($user_name)) {
             $cl = "Nhập tên tài khoản";
@@ -27,11 +28,15 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             $cl = "Nhập tên đầy đủ";
             header("Location: ../add-user.php?error=$cl");
             exit();
+        }  else if (empty($role)) {
+            $cl = "Chọn vị trí";
+            header("Location: ../add-user.php?error=$cl");
+            exit(); 
         } else {
 
             include "Model/User.php";
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $data = array($full_name,  $user_name, $password, "class");
+            $data = array($full_name,  $user_name, $password, $role);
             insert_user($conn, $data);
             
             $cl = "Tạo mới người dùng thành công";

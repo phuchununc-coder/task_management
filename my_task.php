@@ -32,15 +32,16 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             <table class="main-table">
                 <tr>
                     <th>#</th>
-                    <th>Tiêu đề</th>
-                    <th>Mô tả</th>
+                    <th>Quân số</th>
+                    <th>Nội dung</th>
                     <th>Trạng thái</th>
+                    <th>Hành động</th>
                 </tr>
                 <?php $i=0; foreach ($tasks as $task) { ?>
                 <tr>
                     <td><?=++$i ?></td>
                     <td><?= $task['title'] ?></td>
-                    <td><?= $task['description'] ?></td>
+                    <td style="max-width: 650px;"><?= $task['description'] ?></td>
                     <td><?= $task['status'] ?></td>
                     <td>
                         <a href="edit-task-class.php?id=<?= $task['id'] ?>" class="edit-btn">Chỉnh sửa</a>

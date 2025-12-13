@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "class") {
+if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     include "DB_connection.php";
     include "app/Model/User.php";
 
@@ -27,6 +27,18 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
                 <tr>
                     <td>Tên đầy đủ</td>
                     <td><?= $user['full_name']?></td>
+                </tr>
+                <tr>
+                    <td>Tên tài khoản</td>
+                    <td><?= $user['username']?></td>
+                </tr>
+                <tr>
+                    <td>Mật khẩu</td>
+                    <td><?= $user['password']?></td>
+                </tr>
+                <tr>
+                    <td>Vai trò</td>
+                    <td><?= $user['role']?></td>
                 </tr>
             </table>
 		</section>

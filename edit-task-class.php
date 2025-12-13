@@ -49,11 +49,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
 				<?php } ?>
 				
                 <div class="input-holder">
-					<label>Tiêu đề</label>
-                    <input type="text" name="title" value="<?=$task['title']?>" class="input-1" placeholder="Tiêu đề"><br>
+					<label>Quân số</label>
+                    <input type="text" name="title" value="<?=$task['title']?>" class="input-1" placeholder="Quân số"><br>
                 </div>
                 <div class="input-holder">
-					<label>Mô tả</label>
+					<label>Nội dung</label>
 					<textarea name="description" class="input-1" rows="5"><?=$task['description']?></textarea><br>
                 </div>
 				<div class="input-holder">

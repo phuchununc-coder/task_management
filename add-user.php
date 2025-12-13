@@ -1,6 +1,10 @@
 <?php
 session_start();
 if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "admin") {
+	include "DB_connection.php";
+    include "app/Model/User.php";
+    $user = get_user_by_id($conn, $_SESSION['id']);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +47,16 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
 					<label>Mật khẩu</label>
                     <input type="text" name="password" class="input-1" placeholder="Mật khẩu"><br>
                 </div>
+				<div class="input-holder">
+					<label>Phân quyền</label>
+                    <select name="role" class="input-1">
+						<option value="0">Chọn vai trò</option>
+                        <option
+                            <?php if ($user['role'] == "class") echo "selected"; ?>>class</option>
+                        <option
+                            <?php if ($user['role'] == "khoa") echo "selected"; ?>>khoa</option>
+                    </select><br>
+                </div>
 
 				<button class="edit-btn">Thêm</button>
             </form>
@@ -51,7 +65,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
 	</div>
 
     <script type="text/javascript">
-        var active = document.querySelector("#navList li:nth-child(4)");
+        var active = document.querySelector("#navList li:nth-child(2)");
         active.classList.add("active");
     </script>
 </body>
